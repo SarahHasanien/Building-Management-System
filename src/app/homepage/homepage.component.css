@@ -1,0 +1,62 @@
+body, html {
+    height: 100%;
+
+  }
+  
+  * {
+    box-sizing: border-box;    
+    font-family: 'Montserrat', sans-serif !important;
+
+  }
+
+  .bg-image {
+    /* The image used */
+    background-image: url('../../assets/images/bg.jpeg');
+  
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  
+    /* Full height */
+    height: 100%; 
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  /* Position text in the middle of the page/image */
+  .bg-text {
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0, 0.2); /* Black w/opacity/see-through */
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 60%;
+    padding: 20px;
+    text-align: center;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+
+  }
+form{
+    width:60%;
+    margin:auto;
+    font-size: 99%;
+    font-weight:normal
+}
+.form-control
+{
+margin-left: 2%
+}
+.wrongmail
+{
+  display: none;
+  color: #CD2D2E;
+  font-size: 80%;
+}
