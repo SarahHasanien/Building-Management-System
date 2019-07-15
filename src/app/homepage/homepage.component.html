@@ -1,27 +1,16 @@
 <div class="bg-image"></div>
-<div class="bg-text">
-  <h1>Building Managment System</h1><br>
-  <form>
-        <div class="form-group row">
-          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-          </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-10">
-            <span class="wrongmail" #wrong>Wrong mail or password! Please try again.
-            </span>
-            <br>
-            <button type="submit" (click)="signInUser()"class="btn btn-danger">Sign in</button>
-          </div>
-        </div>
 
-      </form>
+<div class="bg-text">
+  <h1>Building Managment System</h1>
+  <form>
+    <div class="form-group">
+      <label for="exampleInputEmail1">Email address</label>
+      <input type="email" class="form-control"name="email"[(ngModel)]="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="exampleInputPassword1">Password</label>
+      <input type="password" class="form-control " name="password"[(ngModel)]="password"id="exampleInputPassword1" placeholder="Password">
+    </div>
+    <button type="submit" (click)="getBms()"class="btn btn-danger">Submit</button>
+  </form>
 </div>
