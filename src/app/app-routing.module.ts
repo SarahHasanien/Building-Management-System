@@ -3,15 +3,20 @@ import { Routes, RouterModule } from '@angular/router';
 import { UserComponent } from './user/user.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { HomepageComponent } from './homepage/homepage.component';
+import { FlatsComponent } from './flats/flats.component';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component:HomepageComponent
   },
 {
   path:'user/:id',
   component: UserComponent
+},
+{
+  path:'flats',
+  component:FlatsComponent
 }
 ];
 

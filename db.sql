@@ -47,5 +47,55 @@ VALUES ( 'Lala Mohamed', 1,
 INSERT INTO user ( name, type, email, flat_number, password )
 VALUES ( 'Ibrahim Fattah', 1,
 'Eng-Ibrahim@yahoo.com', 10,"1234567890" );
+/*************************************************************/
+CREATE TABLE months (
+ month integer,
+ year integer,
+ PRIMARY KEY (month, year)
+);
+/***********************************************/
+CREATE TABLE entitlements (
+ name TEXT NOT NULL PRIMARY KEY,
+ type INTEGER NOT NULL
+);
+CREATE TABLE box (
+ box_id INTEGER NOT NULL,
+ value INTEGER NOT NULL
+);
+CREATE TABLE outgoings (
+ out_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+ out_value INTEGER NOT NULL,
+ out_date DATE,
+ out_user INTEGER,
+ FOREIGN KEY (out_user) REFERENCES user (user_id)
+);
+CREATE TABLE payments (
+ pay_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+ pay_value INTEGER NOT NULL,
+ pay_date DATE NOT NULL,
+ pay_descr TEXT,
+ pay_ent INTEGER,
+ pay_mon INTEGER,
+ pay_user INTEGER,
+ FOREIGN KEY (pay_user) REFERENCES user (user_id),
+ FOREIGN KEY (pay_ent) REFERENCES entitlements (name),
+ FOREIGN KEY (pay_mon) REFERENCES months (month)
+);
+/********************/
+INSERT INTO months ( month, year)
+VALUES ( 7, 2019);
+/**********type 0 for monthly entitlements and 1 for emergency********/
+INSERT INTO entitlements ( name, type)
+VALUES ( "Doorman Salary", 0);
 
-    
+INSERT INTO entitlements ( name, type)
+VALUES ( "Electricity (Elevator and more)", 0);
+
+INSERT INTO entitlements ( name, type)
+VALUES ( "Cleaning", 0);
+
+INSERT INTO entitlements ( name, type)
+VALUES ( "Trash", 0);
+/************************/
+INSERT INTO box ( box_id,value)
+VALUES (1,100);

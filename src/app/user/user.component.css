@@ -1,0 +1,82 @@
+.navbar
+{
+    height: 10%
+}
+a{
+    cursor: pointer;
+
+}
+.flats
+{
+    width:60%;
+    margin:3%;
+}
+.flats.material-icons
+{
+    color: #d9534f!important
+}
+.flats li:hover{
+    background-color: #F1F4F5;
+}
+.flats a:hover
+{
+    text-decoration: none;
+
+}
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .card.title {
+    color: grey;
+    font-size: 18px;
+  }
+  
+  .cardbutton {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+  }
+  
+  .card a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+  
+  .card button:hover, a:hover {
+    opacity: 0.7;
+  }
+  /*************/
+  span{
+      font-weight: bold;
+  }
+  .card img{
+      border-radius: 20px;
+      margin:5px auto
+  }
+  .grid-container
+  {
+    display: grid;
+    grid-template-columns: 350px 350px 350px;
+    grid-gap: 100px;
+    background-color: #fff;
+    color: #444;
+  }
+  .grid-container.card
+  {
+    background-color: #444;
+    color: #fff;
+    border-radius: 5px;
+    padding: 20px;
+  }

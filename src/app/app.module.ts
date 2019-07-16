@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 import { UserComponent } from './user/user.component';
 import { FlatsComponent } from './flats/flats.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FlatsComponent } from './flats/flats.component';
     AppRoutingModule,
     NgbModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFontAwesomeModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]
