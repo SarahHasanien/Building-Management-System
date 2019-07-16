@@ -1,0 +1,14 @@
+<h1>Flats</h1>
+<div id="container">
+    <div id ="content">
+        <ul>
+            <li *ngFor="let flat of flats$['data']">
+          
+              <ul>
+                <a routerLink="">{{ flat.name }}</a>
+                <li>{{ flat.flat }}</li>
+              </ul>
+            </li>
+          </ul>
+    </div>
+</div>

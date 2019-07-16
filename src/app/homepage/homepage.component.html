@@ -11,6 +11,7 @@
       <label for="exampleInputPassword1">Password</label>
       <input type="password" class="form-control " name="password"[(ngModel)]="password"id="exampleInputPassword1" placeholder="Password">
     </div>
-    <button type="submit" (click)="getBms()"class="btn btn-danger">Submit</button>
+    <span class="wrongmail" #wrong>Wrong mail or password! Please try again.<br><br> </span>
+    <button type="submit" (click)="logIn()"class="btn btn-danger">Submit</button>
   </form>
-</div>
+</div>س

@@ -9,12 +9,16 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
+import { UserComponent } from './user/user.component';
+import { FlatsComponent } from './flats/flats.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    HomepageComponent
+    HomepageComponent,
+    UserComponent,
+    FlatsComponent
   ],
   imports: [
     BrowserModule,
