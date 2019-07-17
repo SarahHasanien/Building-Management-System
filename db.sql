@@ -99,3 +99,10 @@ VALUES ( "Trash", 0);
 /************************/
 INSERT INTO box ( box_id,value)
 VALUES (1,100);
+
+INSERT INTO outgoings (out_value,out_date,out_user)
+VALUES(50,2019-07-17,1);
+out_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+ out_value INTEGER NOT NULL,
+ out_date DATE,
+ out_user INTEGER,

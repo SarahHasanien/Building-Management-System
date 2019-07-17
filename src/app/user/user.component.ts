@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { stringify } from '@angular/compiler/src/util';
+import {NgbCalendar, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user',
@@ -16,7 +17,9 @@ export class UserComponent implements OnInit {
   private type: string;
   private flatno: string;
   private ty:string;
-
+  model: NgbDateStruct;
+  date: {year: number, month: number};
+  today = this.calendar.getToday();
   //////////////////
   private homeActive:boolean=true;
   private flatsActive:boolean=false;
@@ -31,13 +34,20 @@ export class UserComponent implements OnInit {
   flatsData: JSON;
   ents$: Object;
   entsData: JSON;
+  outs$: Object;
+  outsData: JSON;
   entForm:Boolean =false;
   entBtn:Boolean =true;
+  outForm:Boolean =false;
+  outBtn:Boolean =true;
   public entname;
   public ch1;
   public ch2;
+  public outvalue;
+  public datee;
+  public outowner;
   constructor(private router: Router, private httpClient: HttpClient,
-  private cookieService: CookieService) { 
+  private cookieService: CookieService,private calendar: NgbCalendar) { 
     this.id = parseInt(cookieService.get("userid"));
     this.name = cookieService.get("username");
     this.email = cookieService.get("useremail");
@@ -48,17 +58,20 @@ export class UserComponent implements OnInit {
     this.flatno = cookieService.get('userflatno');
     }
     
-    getFlats() {
+    getFlats(a) {
        this.httpClient.get('http://localhost/api/flats.php').subscribe(data => {
        this.flatsData = data as JSON;
        this.flats$ = this.flatsData;
        console.log(this.flats$['data']);
-       this.homeActive=false;
-       this.flatsActive=true;
-       this.FundActive=false;
-       this.reportsActive=false;
-       this.entActive=false;
-       this.outActive=false;
+       if (a==0)
+       {
+        this.homeActive=false;
+        this.flatsActive=true;
+        this.FundActive=false;
+        this.reportsActive=false;
+        this.entActive=false;
+        this.outActive=false;
+       }
        })
       }
       myProfile()
@@ -85,10 +98,18 @@ export class UserComponent implements OnInit {
           this.outActive=false;
           })
       }
-      addBtn()
+      addBtn(a)
       {
-        this.entForm=true;
-        this.entBtn=false;
+        if(a==0)
+        {
+          this.entForm=true;
+          this.entBtn=false;
+        }
+        else if(a==1)
+        {
+          this.outForm=true;
+          this.outBtn=false;
+        }
 
       }
       addEnt()
@@ -104,8 +125,44 @@ export class UserComponent implements OnInit {
         this.httpClient.get('http://localhost/api/ent.php',{params:params}).subscribe(data => {
         this.entsData = data as JSON;
         this.ents$ = this.entsData;
+        this.getEntitlements();
         //console.log(this.ents$['msg']);
         })
+      }
+      getOutgoings()
+      {
+        let params = new HttpParams().set('add', "0");
+        this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
+        this.outsData = data as JSON;
+        this.outs$ = this.outsData;
+        console.log(this.outs$);
+        this.homeActive=false;
+        this.flatsActive=false;
+        this.FundActive=false;
+        this.reportsActive=false;
+        this.entActive=false;
+        this.outActive=true;
+        })
+      }
+      selectToday() {
+        this.model = this.calendar.getToday();
+      }
+      addOut()
+      {
+        this.datee=this.model.year+"-"+this.model.month+'-'+this.model.day;
+        let params = new HttpParams().set('value', this.outvalue).
+        set('date', this.datee);
+        console.log(this.datee);
+        console.log(this.outvalue);
+        console.log(this.outowner);
+        /*this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
+        this.entsData = data as JSON;
+        this.ents$ = this.entsData;
+        this.getEntitlements();*/
+      }
+      setOwner(a)
+      {
+        this.outowner=a;
       }
   ngOnInit() {
     
