@@ -70,13 +70,33 @@ a{
     display: grid;
     grid-template-columns: 350px 350px 350px;
     grid-gap: 100px;
-    background-color: #fff;
+    background-color: #F1F4F5;
     color: #444;
   }
   .grid-container.card
   {
     background-color: #444;
     color: #fff;
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 20px;
+  
+  }
+  .ents
+  {
+    width: 30%;
+    margin: 0 auto;
+  }
+  table
+  {
+    border-style: solid;
+    border-width: 4px 20px 4px 20px;
+    border-color: #d9534f;
+  }
+  .addEnt
+  {
+    margin: 0 auto!important;
+  }
+  .entForm
+  {
+    display: none;
   }
