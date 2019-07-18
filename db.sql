@@ -74,10 +74,10 @@ CREATE TABLE payments (
  pay_value INTEGER NOT NULL,
  pay_date DATE NOT NULL,
  pay_descr TEXT,
- pay_ent INTEGER,
+ pay_ent TEXT,
  pay_mon INTEGER,
- pay_user INTEGER,
- FOREIGN KEY (pay_user) REFERENCES user (user_id),
+ pay_user TEXT NOT NULL,
+ FOREIGN KEY (pay_user) REFERENCES user (name),
  FOREIGN KEY (pay_ent) REFERENCES entitlements (name),
  FOREIGN KEY (pay_mon) REFERENCES months (month)
 );
@@ -101,8 +101,11 @@ INSERT INTO box ( box_id,value)
 VALUES (1,100);
 
 INSERT INTO outgoings (out_value,out_date,out_user)
-VALUES(50,2019-07-17,1);
+VALUES(50,'2019-07-17',1);
 out_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
  out_value INTEGER NOT NULL,
  out_date DATE,
  out_user INTEGER,
+ /**********************/
+UPDATE box
+SET value = 2000

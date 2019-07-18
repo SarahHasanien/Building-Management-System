@@ -13,7 +13,7 @@
             <a class="nav-link" [ngClass]="{'active': flatsActive==true}" (click)=getFlats(0)>Flats</a>
             </li>
             <li class="nav-item"*ngIf="type == 'Admin'">
-                <a class="nav-link" [ngClass]="{'active': entActive==true}"(click)=getEntitlements()>Entitlements</a>
+                <a class="nav-link" [ngClass]="{'active': entActive==true}"(click)=getEntitlements(0)>Entitlements</a>
             </li>
             <li class="nav-item"*ngIf="type == 'Admin'">
                 <a class="nav-link" [ngClass]="{'active': outActive==true}"(click)=getOutgoings()>Outgoings</a>
@@ -21,8 +21,11 @@
             <li class="nav-item"*ngIf="type == 'Admin'">
             <a class="nav-link" [ngClass]="{'active': reportsActive==true}">Reports</a>
             </li>
-            <li class="nav-item"*ngIf="type == 'Admin'">
-            <a class="nav-link" [ngClass]="{'active': fundActive==true}">Fund Box</a>
+            <li class="nav-item">
+            <a class="nav-link" [ngClass]="{'active': fundActive==true}"(click)=showFundbox()>Fund Box</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [ngClass]="{'active': payActive==true}"(click)=getPayments()>Payments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="">Logout </a>
@@ -30,7 +33,7 @@
             </li>
         </ul>
         <a class="navbar-brand  ml-auto hidden-xs-down" href="">
-            <img src="../../assets/images/brand1.png" width="40" height="40" alt="">&nbsp;&nbsp;&nbsp;Building Management System</a>
+            <img src="../../assets/images/brand1.png" width="40" height="40" alt="">&nbsp;&nbsp;&nbsp;3maret El Hana</a>
         </div>
 </nav>
 <!--Navbar Ends Here-->
@@ -165,7 +168,86 @@
           <button type="submit" (click)= addOut() class="btn btn-info">Add</button>
         </div>
         </div>
+        <span class="invalidop" *ngIf="invalidop">Insufficient Fund :(<br><br> </span>
     </form>
-  
-</div>
 
+</div>
+<!--Outgoings Ends Here-->
+
+<!--Fundbox Starts Here-->
+<div class="card fundcard"  *ngIf="fundActive">
+  <img src="../../assets/images/box3.png" alt="Avatar" style="width:70%">
+  <div class="container">
+    <h4><b>Current Value Inside</b></h4> 
+    <h4><b>{{currentBox}} L.E</b></h4> 
+    <br><br>
+  </div>
+</div>
+<!--Fundbox Ends Here-->
+
+<!--Payments Starts Here-->
+<div class="pay" *ngIf="payActive">
+  <h1 align="center">Add Payments<i class = "material-icons">attach_money</i>
+  </h1><br>
+  <div class="col-md-12 text-center">
+    <div class="btn-group btn-group-lg" role="group" aria-label="Basic example">
+        <button type="button" (click)=showPayForm(0) class="btn btn-danger">For One Flat</button>
+        <button type="button" (click)=showPayForm(1) class="btn btn-info">For All Flats</button>
+    </div>
+  </div><br>
+  <!--payments form-->
+  <form class="payForm" *ngIf="payForm">
+      <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label">Value</label>
+        <div class="col-sm-10">
+          <input type="text" [(ngModel)]="payval" name="payval"class="form-control" id="inputEmail3" placeholder="Value">
+        </div>
+      </div>
+      <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Description</label>
+          <div class="col-sm-10">
+            <input type="text" [(ngModel)]="paydesc" name="paydesc"class="form-control" id="inputEmail3" placeholder="Description">
+          </div>
+        </div>
+      <div ngbDropdown class="d-inline-block" *ngIf="onePay">
+          <br><br>
+          <button class="btn btn-outline-primary" (click)=getFlats(1) id="dropdownBasic1" ngbDropdownToggle>Outgoing Owner</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem  (click)=setOwner(flat.name) *ngFor="let flat of flats$['data']">
+                {{flat.name}}
+            </button>
+          </div>
+      </div>
+
+      <!--Entitlements list-->
+      <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary"  (click)=getEntitlements(1) id="dropdownBasic1" ngbDropdownToggle>Entitlement</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem  (click)=setEnt(ent.name) *ngFor="let ent of ents$['data']">
+                {{ent.name}}
+            </button>
+          </div>
+      </div><br>
+      <!--Months list-->
+      <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" (click)=getMoths(0) id="dropdownBasic1" ngbDropdownToggle>Month</button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button ngbDropdownItem  (click)=setMon(mon.month) *ngFor="let mon of mons$['data']">
+                {{mon.month}} - {{mon.year}} 
+            </button>
+          </div>
+      </div>
+      <!--<hr/>
+      <hr/>
+      <pre>Month: {{ date.month }}.{{ date.year }}</pre>
+      <pre>Model: {{ model | json }}</pre>--><br><br>
+      <ngb-datepicker #dp [(ngModel)]="model" name="model" (navigate)="date = $event.next"></ngb-datepicker>
+
+      <div class="form-group row">
+        <div class="col-sm-10"><br>
+        <button type="submit" (click)= addPay() class="btn btn-info">Add</button>
+      </div>
+      </div>
+  </form>
+</div>
+<!--Payments Ends Here-->

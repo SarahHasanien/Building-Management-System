@@ -100,3 +100,33 @@ a{
   {
     display: none;
   }
+
+.nav-item:hover
+{
+  color:white!important
+}
+.card
+{
+  border-radius: 20px
+}
+.invalidop
+{
+  color: #d9534f;
+  font-weight: bold;
+}
+.button-group {
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.payForm
+{
+  width:40%;
+  margin: auto;
+  justify-content: center;
+}
+.material-icons
+{
+  font-size: 80%
+}

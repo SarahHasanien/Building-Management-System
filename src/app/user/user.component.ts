@@ -23,11 +23,11 @@ export class UserComponent implements OnInit {
   //////////////////
   private homeActive:boolean=true;
   private flatsActive:boolean=false;
-  private FundActive:boolean=false;
+  private fundActive:boolean=false;
   private reportsActive:boolean=false;
   private entActive:boolean=false;
   private outActive:boolean=false;
-
+  private payActive:boolean=false;
 
   
   flats$: Object;
@@ -36,6 +36,10 @@ export class UserComponent implements OnInit {
   entsData: JSON;
   outs$: Object;
   outsData: JSON;
+  mons$: Object;
+  monsData: JSON;
+  pay$: Object;
+  payData: JSON;
   entForm:Boolean =false;
   entBtn:Boolean =true;
   outForm:Boolean =false;
@@ -46,6 +50,15 @@ export class UserComponent implements OnInit {
   public outvalue;
   public datee;
   public outowner;
+  public currentBox=1413;
+  public invalidop=false;
+  public payForm= false;
+  public onePay=false;
+  public payval;
+  public paydesc;
+  public payowner;
+  public payent;
+  public paymon;
   constructor(private router: Router, private httpClient: HttpClient,
   private cookieService: CookieService,private calendar: NgbCalendar) { 
     this.id = parseInt(cookieService.get("userid"));
@@ -67,10 +80,11 @@ export class UserComponent implements OnInit {
        {
         this.homeActive=false;
         this.flatsActive=true;
-        this.FundActive=false;
+        this.fundActive=false;
         this.reportsActive=false;
         this.entActive=false;
         this.outActive=false;
+        this.payActive=false;
        }
        })
       }
@@ -78,24 +92,30 @@ export class UserComponent implements OnInit {
       {
          this.homeActive=true;
          this.flatsActive=false;
-         this.FundActive=false;
+         this.fundActive=false;
          this.reportsActive=false;
          this.entActive=false;
          this.outActive=false;
+         this.payActive=false;
+
       }
-      getEntitlements()
+      getEntitlements(a)
       {
           let params = new HttpParams().set('add', "0");
           this.httpClient.get('http://localhost/api/ent.php',{params:params}).subscribe(data => {
           this.entsData = data as JSON;
           this.ents$ = this.entsData;
           console.log(this.ents$['data']);
-          this.homeActive=false;
-          this.flatsActive=false;
-          this.FundActive=false;
-          this.reportsActive=false;
-          this.entActive=true;
-          this.outActive=false;
+          if(!a)
+          {
+            this.homeActive=false;
+            this.flatsActive=false;
+            this.fundActive=false;
+            this.reportsActive=false;
+            this.entActive=true;
+            this.outActive=false;
+            this.payActive=false;
+          }
           })
       }
       addBtn(a)
@@ -125,7 +145,7 @@ export class UserComponent implements OnInit {
         this.httpClient.get('http://localhost/api/ent.php',{params:params}).subscribe(data => {
         this.entsData = data as JSON;
         this.ents$ = this.entsData;
-        this.getEntitlements();
+        this.getEntitlements(0);
         //console.log(this.ents$['msg']);
         })
       }
@@ -138,10 +158,12 @@ export class UserComponent implements OnInit {
         console.log(this.outs$);
         this.homeActive=false;
         this.flatsActive=false;
-        this.FundActive=false;
+        this.fundActive=false;
         this.reportsActive=false;
         this.entActive=false;
         this.outActive=true;
+        this.payActive=false;
+
         })
       }
       selectToday() {
@@ -151,18 +173,89 @@ export class UserComponent implements OnInit {
       {
         this.datee=this.model.year+"-"+this.model.month+'-'+this.model.day;
         let params = new HttpParams().set('value', this.outvalue).
-        set('date', this.datee);
+        set('date', this.datee).set('owner',this.outowner);
         console.log(this.datee);
         console.log(this.outvalue);
         console.log(this.outowner);
-        /*this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
-        this.entsData = data as JSON;
-        this.ents$ = this.entsData;
-        this.getEntitlements();*/
-      }
+        this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
+        this.outsData = data as JSON;
+        this.outs$ = this.outsData;
+        if (this.outs$['msg']=="Sufficient")
+        {
+          this.currentBox =this.outs$['value'];
+        }
+        else {
+          this.invalidop=true;
+        }
+        this.getOutgoings();
+      })
+    }
       setOwner(a)
       {
         this.outowner=a;
+      }
+      showFundbox()
+      {
+        this.homeActive=false;
+        this.flatsActive=false;
+        this.fundActive=true;
+        this.reportsActive=false;
+        this.entActive=false;
+        this.outActive=false;
+        this.payActive=false;
+      }
+      getPayments()
+      {
+        this.homeActive=false;
+        this.flatsActive=false;
+        this.fundActive=false;
+        this.reportsActive=false;
+        this.entActive=false;
+        this.outActive=false;
+        this.payActive=true;
+      }
+      showPayForm(a)
+      {
+        this.payForm =true;
+        if (!a)//One flat
+          this.onePay = true;
+        else
+        this.onePay=false;
+
+      }
+      getMoths(a)
+      {
+        if (!a)
+        {
+          let params = new HttpParams().set('add', "0");
+          this.httpClient.get('http://localhost/api/mon.php',{params:params}).subscribe(data => {
+          this.monsData = data as JSON;
+          this.mons$ = this.monsData;
+          console.log(this.mons$);  
+          });
+        }
+      }
+      setEnt(a)
+      {
+        this.payent=a;
+      }
+      setMon(a)
+      {
+        this.paymon=a;
+      }
+      addPay()
+      {
+        if(this.onePay)
+          console.log(this.payval+' '+this.paydesc+' '+this.paymon+' '+this.outowner);
+          this.datee =this.model.year+"-"+this.model.month+'-'+this.model.day;
+          let params = new HttpParams().set('val', this.payval).
+          set('desc',this.paydesc).set('mon',this.paymon).
+          set('own',this.payowner).set('date',this.datee);
+          this.httpClient.get('http://localhost/api/pay.php',{params:params}).subscribe(data => {
+          this.payData = data as JSON;
+          this.pay$ = this.payData;
+          console.log(this.pay$['msg']);
+          });
       }
   ngOnInit() {
     
