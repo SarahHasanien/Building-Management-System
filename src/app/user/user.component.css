@@ -130,3 +130,8 @@ a{
 {
   font-size: 80%
 }
+.sucMsg
+{
+  color: green;
+  font-weight: bold
+}

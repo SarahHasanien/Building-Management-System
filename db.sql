@@ -70,16 +70,16 @@ CREATE TABLE outgoings (
  FOREIGN KEY (out_user) REFERENCES user (user_id)
 );
 CREATE TABLE payments (
- pay_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
  pay_value INTEGER NOT NULL,
  pay_date DATE NOT NULL,
  pay_descr TEXT,
- pay_ent TEXT,
- pay_mon INTEGER,
+ pay_ent TEXT NOT NULL,
+ pay_mon INTEGER NOT NULL,
  pay_user TEXT NOT NULL,
  FOREIGN KEY (pay_user) REFERENCES user (name),
  FOREIGN KEY (pay_ent) REFERENCES entitlements (name),
- FOREIGN KEY (pay_mon) REFERENCES months (month)
+ FOREIGN KEY (pay_mon) REFERENCES months (month),
+ PRIMARY KEY ( pay_user, pay_ent,pay_mon)
 );
 /********************/
 INSERT INTO months ( month, year)

@@ -24,7 +24,7 @@
             <li class="nav-item">
             <a class="nav-link" [ngClass]="{'active': fundActive==true}"(click)=showFundbox()>Fund Box</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item"*ngIf="type == 'Admin'">
                 <a class="nav-link" [ngClass]="{'active': payActive==true}"(click)=getPayments()>Payments</a>
             </li>
             <li class="nav-item">
@@ -248,6 +248,9 @@
         <button type="submit" (click)= addPay() class="btn btn-info">Add</button>
       </div>
       </div>
+      <div class="alert alert-success sucMsg" *ngIf="sucmsg" role="alert">
+          Data Inserted Successfully!    
+        </div>
   </form>
 </div>
 <!--Payments Ends Here-->
