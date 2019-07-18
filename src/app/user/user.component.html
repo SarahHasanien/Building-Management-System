@@ -19,13 +19,13 @@
                 <a class="nav-link" [ngClass]="{'active': outActive==true}"(click)=getOutgoings()>Outgoings</a>
             </li>
             <li class="nav-item"*ngIf="type == 'Admin'">
-            <a class="nav-link" [ngClass]="{'active': reportsActive==true}">Reports</a>
+            <a class="nav-link" [ngClass]="{'active': reportsActive==true}" (click)=showPayments()>Payments</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" [ngClass]="{'active': fundActive==true}"(click)=showFundbox()>Fund Box</a>
             </li>
             <li class="nav-item"*ngIf="type == 'Admin'">
-                <a class="nav-link" [ngClass]="{'active': payActive==true}"(click)=getPayments()>Payments</a>
+                <a class="nav-link" [ngClass]="{'active': payActive==true}"(click)=getPayments()>Add Payments</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link " href="">Logout </a>
@@ -58,6 +58,20 @@
             <p class="title">{{flat.type}}</p>
             <p><span>Flat Number:</span>  {{flat.flat}}</p>
             <p>{{flat.email}}</p>
+            <table class="table tablef table-striped table-dark">
+              <thead>
+                  <tr>
+                  <th scope="col">  Entitlement</th>
+                  <th scope="col">Month</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let f of flat.entmon">
+                  <td>{{f.ent}}</td>
+                  <td>{{f.mon}}</td>      
+                  </tr>
+              </tbody>
+          </table>
     </div>
 </div>
 <!--Flats Ends Starts Here-->
@@ -185,7 +199,7 @@
 </div>
 <!--Fundbox Ends Here-->
 
-<!--Payments Starts Here-->
+<!--Adding Payments Starts Here-->
 <div class="pay" *ngIf="payActive">
   <h1 align="center">Add Payments<i class = "material-icons">attach_money</i>
   </h1><br>
@@ -253,4 +267,32 @@
         </div>
   </form>
 </div>
-<!--Payments Ends Here-->
+<!--Adding Payments Ends Here-->
+
+<!--Payments List Starts Here-->
+<div *ngIf="reportsActive">
+<table class="table table-striped table-dark">
+  <thead>
+      <tr>
+      <th scope="col">Payment Value</th>
+      <th scope="col">Submission Date</th>
+      <th scope="col"> Description</th>
+      <th scope="col">Entitlement</th>
+      <th scope="col">For Month</th>
+      <th scope="col">Owner</th>
+
+      </tr>
+  </thead>
+  <tbody>
+      <tr *ngFor="let t of tst$['data']">
+      <td>{{t.val}}</td>
+      <td>{{t.date}}</td>
+      <td>{{t.desc}}</td>
+      <td>{{t.ent}}</td>
+      <td>{{t.mon}}</td>
+      <td>{{t.user}}</td>
+      </tr>
+  </tbody>
+</table>
+</div>
+<!--Payments List Ends Here-->

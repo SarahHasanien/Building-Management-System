@@ -271,6 +271,8 @@ export class UserComponent implements OnInit {
           this.tstData = data as JSON;
           this.tst$ = this.tstData;
           console.log(this.tst$['msg']);
+          this.currentBox =this.tst$['box'];
+
           if(this.tst$['msg']=="Success")
           {
             console.log(this.sucmsg);
@@ -284,6 +286,8 @@ export class UserComponent implements OnInit {
           this.tstData = data as JSON;
           this.tst$ = this.tstData;
           console.log(this.tst$['msg']);
+          this.currentBox =this.tst$['box'];
+
           if(this.tst$['msg']=='Success')
           {
             console.log(this.sucmsg);
@@ -292,6 +296,21 @@ export class UserComponent implements OnInit {
           });
         }
         
+      }
+      showPayments()
+      {
+        this.homeActive=false;
+        this.flatsActive=false;
+        this.fundActive=false;
+        this.reportsActive=true;
+        this.entActive=false;
+        this.outActive=false;
+        this.payActive=false;
+        this.httpClient.get('http://localhost/api/getpay.php').subscribe(data => {
+          this.tstData = data as JSON;
+          this.tst$ = this.tstData;
+          console.log(this.tst$);  
+          });
       }
   ngOnInit() {
     
