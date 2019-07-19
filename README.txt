@@ -2,8 +2,7 @@ Asssumptions:
 1) There are 10 flats in the building, each falt has an account on our system.
 2) These accounts are created by us and given to the users.
 3) It's the admins' responsbility every month to add new month to the db.
-4) Money box initially has 100 L.E
-5) Esmail and Mahmoumd has specific views as admins with more priviliges than other users.
+4) Esmail and Mahmoumd has specific views as admins with more priviliges than other users.
 
 How to start using it?
 1) git clone https://github.com/SarahHasanien/Building-Management-System.git
