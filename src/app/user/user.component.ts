@@ -12,8 +12,8 @@ import { of } from 'rxjs';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-  private id: number=-1;
-  private name: string="sara";
+  private id: number;
+  private name: string;
   private email: string;
   private type: string;
   private flatno: string;
@@ -30,39 +30,33 @@ export class UserComponent implements OnInit {
   private outActive:boolean=false;
   private payActive:boolean=false;
   private sucmsg:boolean=false;
-
   
-  flats$: Object;
-  flatsData: JSON;
-  ents$: Object;
-  entsData: JSON;
-  outs$: Object;
-  outsData: JSON;
-  mons$: Object;
-  monsData: JSON;
-  pay$: Object;
-  payData: JSON;
-  tst$: Object;
-  tstData: JSON;
-  entForm:Boolean =false;
-  entBtn:Boolean =true;
-  outForm:Boolean =false;
-  outBtn:Boolean =true;
-  public entname;
-  public ch1;
-  public ch2;
-  public outvalue;
-  public datee;
-  public outowner;
-  public currentBox=1413;
-  public invalidop=false;
-  public payForm= false;
-  public onePay=false;
-  public payval;
-  public paydesc;
-  public payowner;
-  public payent;
-  public paymon;
+  private flats$: Object;
+  private JSONData: JSON;
+  private ents$: Object;
+  private outs$: Object;
+  private mons$: Object;
+  private pay$: Object;
+  private tst$: Object;
+  private entForm:Boolean =false;
+  private entBtn:Boolean =true;
+  private outForm:Boolean =false;
+  private outBtn:Boolean =true;
+  private entname:string;
+  private ch1:string;
+  private ch2:string;
+  private outvalue:string;
+  private datee:string;
+  private outowner:string;
+  private currentBox=100;
+  private invalidop:Boolean=false;
+  private payForm:Boolean= false;
+  private onePay:Boolean=false;
+  private payval:string;
+  private paydesc:string;
+  private payowner:string;
+  private payent:string;
+  private paymon:string;
   constructor(private router: Router, private httpClient: HttpClient,
   private cookieService: CookieService,private calendar: NgbCalendar) { 
     this.id = parseInt(cookieService.get("userid"));
@@ -77,8 +71,8 @@ export class UserComponent implements OnInit {
     getFlats(a) {
        this.sucmsg=false;
        this.httpClient.get('http://localhost/api/flats.php').subscribe(data => {
-       this.flatsData = data as JSON;
-       this.flats$ = this.flatsData;
+       this.JSONData = data as JSON;
+       this.flats$ = this.JSONData;
        console.log(this.flats$['data']);
        if (a==0)
        {
@@ -109,8 +103,8 @@ export class UserComponent implements OnInit {
           this.sucmsg=false;
           let params = new HttpParams().set('add', "0");
           this.httpClient.get('http://localhost/api/ent.php',{params:params}).subscribe(data => {
-          this.entsData = data as JSON;
-          this.ents$ = this.entsData;
+          this.JSONData = data as JSON;
+          this.ents$ = this.JSONData;
           console.log(this.ents$['data']);
           if(!a)
           {
@@ -150,8 +144,8 @@ export class UserComponent implements OnInit {
         let params = new HttpParams().set('add', "1").
         set('name', this.entname).set('type', this.ty);
         this.httpClient.get('http://localhost/api/ent.php',{params:params}).subscribe(data => {
-        this.entsData = data as JSON;
-        this.ents$ = this.entsData;
+        this.JSONData = data as JSON;
+        this.ents$ = this.JSONData;
         this.getEntitlements(0);
         //console.log(this.ents$['msg']);
         })
@@ -161,8 +155,8 @@ export class UserComponent implements OnInit {
         this.sucmsg=false;
         let params = new HttpParams().set('add', "0");
         this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
-        this.outsData = data as JSON;
-        this.outs$ = this.outsData;
+        this.JSONData = data as JSON;
+        this.outs$ = this.JSONData;
         console.log(this.outs$);
         this.homeActive=false;
         this.flatsActive=false;
@@ -187,8 +181,8 @@ export class UserComponent implements OnInit {
         console.log(this.outvalue);
         console.log(this.outowner);
         this.httpClient.get('http://localhost/api/out.php',{params:params}).subscribe(data => {
-        this.outsData = data as JSON;
-        this.outs$ = this.outsData;
+        this.JSONData = data as JSON;
+        this.outs$ = this.JSONData;
         if (this.outs$['msg']=="Sufficient")
         {
           this.currentBox =this.outs$['value'];
@@ -243,8 +237,8 @@ export class UserComponent implements OnInit {
         {
           let params = new HttpParams().set('add', "0");
           this.httpClient.get('http://localhost/api/mon.php',{params:params}).subscribe(data => {
-          this.monsData = data as JSON;
-          this.mons$ = this.monsData;
+          this.JSONData = data as JSON;
+          this.mons$ = this.JSONData;
           console.log(this.mons$);  
           });
         }
@@ -268,8 +262,8 @@ export class UserComponent implements OnInit {
         if(this.onePay)
         {
           this.httpClient.get('http://localhost/api/pay_1.php',{params:params}).subscribe(data => {
-          this.tstData = data as JSON;
-          this.tst$ = this.tstData;
+          this.JSONData = data as JSON;
+          this.tst$ = this.JSONData;
           console.log(this.tst$['msg']);
           this.currentBox =this.tst$['box'];
 
@@ -283,8 +277,8 @@ export class UserComponent implements OnInit {
         else
         {
           this.httpClient.get('http://localhost/api/pay_2.php',{params:params}).subscribe(data => {
-          this.tstData = data as JSON;
-          this.tst$ = this.tstData;
+          this.JSONData = data as JSON;
+          this.tst$ = this.JSONData;
           console.log(this.tst$['msg']);
           this.currentBox =this.tst$['box'];
 
@@ -307,8 +301,8 @@ export class UserComponent implements OnInit {
         this.outActive=false;
         this.payActive=false;
         this.httpClient.get('http://localhost/api/getpay.php').subscribe(data => {
-          this.tstData = data as JSON;
-          this.tst$ = this.tstData;
+          this.JSONData = data as JSON;
+          this.tst$ = this.JSONData;
           console.log(this.tst$);  
           });
       }
