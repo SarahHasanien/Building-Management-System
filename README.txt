@@ -12,10 +12,4 @@ How to start using it?
 5) navigate from your browser to localhost:4200
 6) assuming you are running apache serve and api folder added in its root.
 7) run sql commands in db.sql file
-7) Start using it!
---------------------------------------------------
-this page shows the entitlments each flat should pay for
-while we have only june and july in the db and 2 entitlments, so each flat has 4 rows in these tables
-lets add payment for one flat
-lets add payment for all flats
-thank youuu =))
+8) Start using it!
